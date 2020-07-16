@@ -10,7 +10,7 @@ SELECT * FROM actors;
 SELECT first_name, last_name, date_of_birth FROM actors
 ORDER BY first_name;
 
--- DESC (low to high) / ASC (high to low: default)
+-- DESC (high to low) / ASC (low to high: default)
 SELECT first_name, last_name, date_of_birth FROM actors
 ORDER BY first_name DESC;
 

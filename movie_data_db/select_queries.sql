@@ -81,8 +81,9 @@ SELECT movie_name FROM movies
 WHERE movie_length > 90
 AND movie_lang = 'English';
 
-
--- IN, NOT IN, LIKE, BETWEEN
+/*====================================================================
+    IN, NOT IN, LIKE, BETWEEN
+====================================================================*/
 --1: Select the movie names and movie language of all movies with a movie lang of English, Spanish or Korean
 SELECT movie_name, movie_lang FROM movies
 WHERE movie_lang IN ('English', 'Spanish', 'Korean');
@@ -99,3 +100,35 @@ AND date_of_birth BETWEEN '1940-01-01' AND '1969-12-31';
 SELECT first_name, last_name From directors
 WHERE nationality IN ('British', 'French', 'German')
 AND date_of_birth BETWEEN '1950-01-01' AND '1980-12-31';
+
+
+/*====================================================================
+   ORDER BY, LIMIT, FETCH, DISTINCT CHALLENGES
+====================================================================*/
+
+--1: Select the American directors ordered from the oldest to youngest
+SELECT * FROM directors
+WHERE nationality = 'American'
+ORDER BY date_of_birth ASC;
+
+-- Don't need ASC since it's the default
+SELECT * FROM directors
+WHERE nationality = 'American'
+ORDER BY date_of_birth;
+
+--2: Select the distinct nationalities from the directors table
+SELECT DISTINCT nationality FROM directors;
+
+--3: Select the first names, last names and date of births of...
+-- ...the 10 youngest female actresses
+-- With LIMIT:
+SELECT first_name, last_name, date_of_birth FROM actors
+WHERE gender = 'F'
+ORDER BY date_of_birth DESC
+LIMIT 10;
+
+-- With FETCH:
+SELECT first_name, last_name, date_of_birth FROM actors
+WHERE gender = 'F'
+ORDER BY date_of_birth DESC
+FETCH FIRST 10 ROW ONLY;
