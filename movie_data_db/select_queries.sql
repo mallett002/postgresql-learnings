@@ -60,7 +60,9 @@ SELECT * FROM movies
 WHERE movie_lang > 'English';
 
 
--- CHALLENGES
+/*====================================================================
+                        *SELECT CHALLENGES*
+====================================================================*/
 -- 1: Select the movie_name and release_date of every movie
 SELECT movie_name, release_date FROM movies;
 
