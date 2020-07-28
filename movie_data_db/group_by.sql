@@ -6,7 +6,7 @@ GROUP BY column1;
 
 SELECT COUNT(movie_lang) FROM movies;
 
--- Group data be movie_lang: Creates groups for each movie language
+-- Group data by movie_lang: Creates groups for each movie language
 SELECT movie_lang, COUNT(movie_lang) FROM movies
 GROUP BY movie_lang;
 
