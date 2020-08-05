@@ -17,3 +17,25 @@ JOIN movie_revenues mr ON mo.movie_id = mr.movie_id
 WHERE mr.domestic_takings IS NULL
 OR mr.international_takings IS NULL
 ORDER BY mo.movie_name;
+
+
+-- LEFT, RIGHT, FULL JOINS CHALLENGES
+--1: Use a left join to select the first and last names of all British...
+--   ...directors and the names and age certificates of the movies they directed.
+SELECT d.first_name, d.last_name, mo.movie_name, mo.age_certificate FROM directors d
+LEFT JOIN movies mo ON d.director_id = mo.director_id
+WHERE d.nationality = 'British';
+
+
+--2: Count the number of movies that each director has directed.
+-- Mine:
+SELECT CONCAT_WS(' ', d.first_name, d.last_name) as full_name, COUNT(mo.movie_id) AS total_movies
+FROM directors d
+LEFT JOIN movies mo ON mo.director_id = d.director_id
+GROUP BY full_name
+ORDER BY full_name;
+
+-- Answer:
+SELECT d.first_name, d.last_name, COUNT(mo.movie_id) FROM directors d
+LEFT JOIN movies mo ON d.director_id = mo.director_id
+GROUP BY d.first_name, d.last_name;
