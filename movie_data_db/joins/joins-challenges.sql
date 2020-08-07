@@ -43,7 +43,10 @@ GROUP BY d.first_name, d.last_name;
 
 
 -- MULTIPLE TABLE JOINS CHALLENGES
---1: Select the first and last names of all the actors who have starred in movies directed by Wes Anderson.
+---------------------------------------------------------------------------------------------
+-- 1: Select the first and last names of all the actors who have starred in movies...
+--    ...directed by Wes Anderson.
+---------------------------------------------------------------------------------------------
 SELECT 
 CONCAT_WS(' ', ac.first_name, ac.last_name) as actor,
 CONCAT_WS(' ', d.first_name, d.last_name) as director
@@ -53,7 +56,32 @@ JOIN movies mo ON ma.movie_id = mo.movie_id
 JOIN directors d ON mo.director_id = d.director_id
 WHERE d.first_name = 'Wes' AND d.last_name = 'Anderson'; -- 20 retults
 
+--answer:
+select ac.first_name, ac.last_name from actors ac
+join movies_actors ma on ac.actor_id = ma.actor_id
+join movies mo on mo.movie_id = ma.movie_id
+join directors d on mo.director_id = d.director_id
+where d.first_name = 'Wes'
+and d.last_name = 'Anderson';
+
+---------------------------------------------------------------------------------------------
 --2: Which director has the highest total domestic takings?
--- select concat_ws(' ', d.first_name, d.last_name), mr.domestic_takings
--- from directors d
--- join;
+---------------------------------------------------------------------------------------------
+select d.first_name, d.last_name, sum(mr.domestic_takings) as total
+from directors d
+join movies mo on d.director_id = mo.director_id
+join movie_revenues mr on mr.movie_id = mo.movie_id
+group by d.first_name, d.last_name
+having sum(mr.domestic_takings) is not null
+order by total desc
+limit 1;
+
+-- answer:
+select d.first_name, d.last_name, sum(mr.domestic_takings) as total_dom_takings from directors d
+join movies mo on d.director_id = mo.director_id
+join movie_revenues mr on mr.movie_id = mo.movie_id
+where mr.domestic_takings is not null
+group by d.first_name, d.last_name
+order by total_dom_takings desc
+limit 1;
+
