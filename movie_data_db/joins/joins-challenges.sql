@@ -21,6 +21,8 @@ WHERE mr.domestic_takings IS NULL
 OR mr.international_takings IS NULL
 ORDER BY mo.movie_name;
 
+
+
 ---------------------------------------------------------------------------------------------
 -- *** LEFT, RIGHT, FULL JOINS CHALLENGES ***
 ---------------------------------------------------------------------------------------------
@@ -88,6 +90,7 @@ order by total_dom_takings desc
 limit 1;
 
 
+
 ---------------------------------------------------------------------------------------------
 -- *** UNION CHALLENGES ***
 ---------------------------------------------------------------------------------------------
@@ -106,3 +109,20 @@ union all
 select first_name, last_name from actors
 where date_of_birth between '1960-01-01' and '1969-12-31'
 order by last_name;
+
+
+
+---------------------------------------------------------------------------------------------
+-- *** INTERSECT & EXCEPT CHALLENGES ***
+---------------------------------------------------------------------------------------------
+--1. Intersect the first name, last name and date of birth columns in the directors and actors tables.
+select first_name, last_name, date_of_birth from directors
+intersect
+select first_name, last_name, date_of_birth from actors;
+
+--2. Retrieve the first names of male actors unless they have the same first name as any British directors.
+select first_name from actors
+where gender = 'M'
+except
+select first_name from directors
+where nationality = 'British';
