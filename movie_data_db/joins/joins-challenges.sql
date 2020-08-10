@@ -1,3 +1,6 @@
+---------------------------------------------------------------------------------------------
+-- *** BASIC LEFT JOIN CHALLENGES ***
+---------------------------------------------------------------------------------------------
 --1: Select the directors first and last names, the movie names and release dates for all Chinese,...
 -- ...Korean and Japanese movies.
 
@@ -18,8 +21,9 @@ WHERE mr.domestic_takings IS NULL
 OR mr.international_takings IS NULL
 ORDER BY mo.movie_name;
 
-
--- LEFT, RIGHT, FULL JOINS CHALLENGES
+---------------------------------------------------------------------------------------------
+-- *** LEFT, RIGHT, FULL JOINS CHALLENGES ***
+---------------------------------------------------------------------------------------------
 --1: Use a left join to select the first and last names of all British...
 --   ...directors and the names and age certificates of the movies they directed.
 SELECT d.first_name, d.last_name, mo.movie_name, mo.age_certificate FROM directors d
@@ -42,11 +46,11 @@ GROUP BY d.first_name, d.last_name;
 
 
 
--- MULTIPLE TABLE JOINS CHALLENGES
+---------------------------------------------------------------------------------------------
+-- *** MULTIPLE TABLE JOINS CHALLENGES ***
 ---------------------------------------------------------------------------------------------
 -- 1: Select the first and last names of all the actors who have starred in movies...
 --    ...directed by Wes Anderson.
----------------------------------------------------------------------------------------------
 SELECT 
 CONCAT_WS(' ', ac.first_name, ac.last_name) as actor,
 CONCAT_WS(' ', d.first_name, d.last_name) as director
@@ -64,9 +68,7 @@ join directors d on mo.director_id = d.director_id
 where d.first_name = 'Wes'
 and d.last_name = 'Anderson';
 
----------------------------------------------------------------------------------------------
 --2: Which director has the highest total domestic takings?
----------------------------------------------------------------------------------------------
 select d.first_name, d.last_name, sum(mr.domestic_takings) as total
 from directors d
 join movies mo on d.director_id = mo.director_id
@@ -85,3 +87,22 @@ group by d.first_name, d.last_name
 order by total_dom_takings desc
 limit 1;
 
+
+---------------------------------------------------------------------------------------------
+-- *** UNION CHALLENGES ***
+---------------------------------------------------------------------------------------------
+--1. Select the first names, last names and dates of birth from directors and actors.
+-- 	 Order the result by the date of birth.
+SELECT first_name, last_name, date_of_birth FROM directors
+UNION
+SELECT first_name, last_name, date_of_birth FROM actors
+ORDER BY date_of_birth;
+
+--2. Select the frist and last names of all directors and actors born in the 1960s. Order...
+--   ...the results by last name.
+select first_name, last_name from directors
+where date_of_birth between '1960-01-01' and '1969-12-31'
+union all
+select first_name, last_name from actors
+where date_of_birth between '1960-01-01' and '1969-12-31'
+order by last_name;
