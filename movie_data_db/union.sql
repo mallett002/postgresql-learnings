@@ -1,5 +1,5 @@
 -- UNION
--- Return multiple select queries in single results set
+-- Return multiple select queries in single results set, removing duplicates
 /*
 SELECT column1, column2 FROM table1
 UNION
@@ -37,4 +37,17 @@ WHERE nationality = 'American'
 UNION
 SELECT first_name, last_name, date_of_birth FROM actors
 WHERE gender = 'F'
+ORDER BY first_name;
+
+-- UNION ALL
+-- Won't remove dublicates
+/*
+SELECT column1, column2, FROM table1
+UNION ALL
+SELECT column1, column2 FROM table2;
+*/
+
+SELECT first_name FROM directors
+UNION ALL
+SELECT first_name FROM actors
 ORDER BY first_name;
