@@ -38,3 +38,29 @@ select concat_ws(
 	left(first_name, 1),
 	left(last_name, 1)
 ) as initials from directors;
+
+
+
+--5. Use the substring function to retrieve the first 6 chars of each movie name...
+--	 ...and the year they were released.
+select substring(movie_name, 1, 6) as movie_name,
+substring(release_date::text, 1, 4) as year from movies;
+
+
+
+
+--6. Retrieve the first name initial and last name of every actor born in May.
+select concat_ws('.' ,left(first_name, 1), last_name) from actors
+where split_part(date_of_birth::text, '-', 2) = '05';
+
+--answer:
+select substring(first_name, 1, 1) as first_initial, last_name, date_of_birth from actors
+where split_part(date_of_birth::text, '-', 2) = '05';
+
+
+
+--7. Replace the movie language for all English language movies, with age certificate...
+-- ...rating 18, to 'Eng'.
+update movies
+set movie_lang = replace(movie_lang, 'English', 'Eng')
+where age_certificate = '18';
